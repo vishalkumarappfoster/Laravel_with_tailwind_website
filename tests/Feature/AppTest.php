@@ -10,27 +10,30 @@ test('dashboard requires authentication', function () {
     $response->assertRedirect('/login');
 });
 
-// test('logout redirects to login', function () {
-//     // create a user and login
-//     $user = User::factory()->create();
-//     $this->actingAs($user);
-
-//     // call the logout endpoint
-//     $response = $this->post('/logout');
-
-//     // assert that the user is logged out and redirected to the login page
-//     $this->assertGuest();
-//     $response->assertRedirect('/login');
-// });
 
 
-// test('signup user', function () {
-//     $response = $this->post('signup-user',[
-//         'email' => 'vishal123@gmail.com',
-//         'first_name' => 'vishal',
-//         'last_name' => 'kumar',
-//         'password' => '123456',
-//         'confirm_password' => '123456'
-//     ]);
-//     $response->assertRedirect('/login');
-// });
+test('auth middleware is working', function () {
+    $response = $this->get('/dashboard');
+
+    $response->assertRedirect('/login');
+});
+
+
+test('user can signup', function () {
+    $userData = [
+        'email' => 'mohnish123@gmail.com',
+        'first_name' => 'mohnish',
+        'last_name' => 'singh',
+        'password' => '123123',
+        'confirm_password' => '123123',
+    ];
+
+    $this->post(route('signup-user'), $userData)
+        ->assertSessionHas('success', 'You have registered successfully');
+
+    $this->assertDatabaseHas('users', [
+        'email' => 'mohnish123@gmail.com',
+        'first_name' => 'mohnish',
+        'last_name' => 'singh',
+    ]);
+});
