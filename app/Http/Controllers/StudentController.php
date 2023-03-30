@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Course;
 use Illuminate\Support\Facades\Storage;
+
 
 
 class StudentController extends Controller
@@ -26,7 +28,7 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:students,email',
@@ -48,9 +50,7 @@ class StudentController extends Controller
         } else {
             return redirect()->back()->withErrors(['cv_file' => 'File not found.']);
         }
-    
 
-        
         // dd($request);
 
         $student = new Student([
@@ -67,7 +67,23 @@ class StudentController extends Controller
 
         $student->courses()->attach($request->get('select_courses'));
 
-        // return redirect('/students')->with('success', 'Student has been added');
+// sending register mail
+$email = $request->email;
+$name = $request->name;
+$select_course = $request->select_course;
+
+$data = [
+    'name' => $name,
+    'email' => $email,
+    'select_course' => $select_course,
+];
+
+Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
+    $message->to($email, $name)
+            ->subject('Welcome to our course!');
+});
+       
+
         return redirect()->back()->with('success', 'Student has been added');
     }
 
