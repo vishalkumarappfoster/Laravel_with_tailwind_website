@@ -10,14 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 
 
+
 class StudentController extends Controller
 {
     public function index()
     {
         $students = Student::all();
-        // return view('register', compact('students'));
         return view('student', compact('students'));
-    
     }
 
     public function create()
@@ -152,8 +151,15 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
         }
        
         $path =   $student->cv_file;
-        // dd($path);
+        
         return Storage::download($path);
     }
+    
+    //  export excel file 
+//     public function downloadExcel()
+// {
+//     $students = Student::all(); 
+//     return Excel::download(new StudentsExport($students), 'students.xlsx');
+// }
 
 }

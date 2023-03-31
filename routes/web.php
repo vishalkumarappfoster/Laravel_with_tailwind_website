@@ -2,6 +2,11 @@
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomAuthController;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\Models\Student;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +49,7 @@ Route::get('/dashboard',[CustomAuthController::class,'dashboard'])->middleware('
 Route::get('/logout',[CustomAuthController::class,'logout']);
 
 
-// Student routes
+// Student routes    
 Route::post('/students',[StudentController::class,'store'])->name('students.store');
 Route::get('/students', [StudentController::class,'index'])->name('students.index');
 Route::get('/students/create', [StudentController::class,'create'])->name('students.create');
@@ -53,10 +58,42 @@ Route::get('/students/{id}/edit', [StudentController::class,'edit'])->name('stud
 Route::put('/students/{id}', [StudentController::class,'update'])->name('students.update');
 Route::delete('/students/{id}', [StudentController::class,'destroy'])->name('students.destroy');
 
-
+//route for cd download
 Route::get('/students/{id}/download-cv', [StudentController::class,'downloadCv'])->name('download.cv');
 
+//route for download table data in excel sheet
+// Route::get('/students/download/excel', [StudentController::class, 'downloadExcel'])->name('students.download.excel');
 
+Route::get('students/download/excel', function () {
+    $students = Student::all();
+    
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setCellValue('A1', 'ID');
+    $sheet->setCellValue('B1', 'Name');
+    $sheet->setCellValue('C1', 'Email');
+    $sheet->setCellValue('D1', 'phone_number');
+    $sheet->setCellValue('E1', 'address');
+    $sheet->setCellValue('F1', 'select_course');
+    $sheet->setCellValue('G1', 'highest_qualification');
+    
+    foreach ($students as $index => $student) {
+        $row = $index + 2;
+        $sheet->setCellValue('A' . $row, $student->id);
+        $sheet->setCellValue('B' . $row, $student->name);
+        $sheet->setCellValue('C' . $row, $student->email);
+        $sheet->setCellValue('D' . $row, $student->phone_number);
+        $sheet->setCellValue('E' . $row, $student->address);
+        $sheet->setCellValue('F' . $row, $student->select_course);
+        $sheet->setCellValue('G' . $row, $student->highest_qualification);
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    $fileName = 'students.xlsx';
+    $writer->save($fileName);
+
+    return response()->download($fileName)->deleteFileAfterSend();
+})->name('students.download.excel');
 
 
 

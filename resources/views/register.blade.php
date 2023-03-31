@@ -103,7 +103,7 @@
             </div>
         </nav>
         <section>
-            <div class=" flex-1 bg-gray-100 mt-12  pb-24 pt-6 md:pb-5  w-screen rounded-lg overflow-x-auto ">
+            <div class="flex-1 bg-gray-100 mt-12  pb-24 pt-6 md:pb-5  w-screen rounded-lg overflow-x-auto  ">
              <!-- form -->
 <div class="w-full md:w-1/2 md:max-w-full mx-auto bg-white rounded-lg ">
   <div class="p-6 border border-gray-300 sm:rounded-md">

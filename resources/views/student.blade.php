@@ -104,8 +104,12 @@
         </nav>
         <section>
             <!-- student-data -->
-            <div class="bg-gray-100">
-        <span><h1 class="text-5xl text-center font-bold py-3 pb-7">Students Data</h1></span>
+     <div class="bg-gray-100">
+     <div class="bg-gray-100 flex justify-between items-center pr-6">
+     <h1 class="text-5xl text-center font-bold py-3 pb-7">Students Data</h1>
+     <button id="download-excel"  class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-lg ">Export excel</button>
+     </div>
+
         <div class="overflow-x-auto pr-4 rounded-lg">
       <table class="table-auto border-collapse border border-gray-300 ">
         <thead>
@@ -151,13 +155,45 @@
         <!-- <td class="border px-4 py-2"><button class="hover:bg-red-500">Delete</button></td> -->
       </tr>
      @endforeach
-    </tbody>
-  </table>
+     </tbody>
+     </table>
         </section>
     </div>
 </main>
 
+<!-- excel sheet -->
+<script>
+    // click event button
+    document.getElementById('download-excel').addEventListener('click', function() {
+        // Redirect to downloadExcel route
+        window.location.href = "{{ route('students.download.excel') }}";
+    });
+</script>
 
+
+<script>
+  document.getElementById("download-excel").addEventListener("click", function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '{{ route("students.download.excel") }}');
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+      if (this.status === 200) {
+        var a = document.createElement('a');
+        var url = window.URL.createObjectURL(this.response);
+        a.href = url;
+        a.download = 'students.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);  
+        }, 0);
+      }
+    };
+    xhr.send();
+  });
+</script>
+<!-- excel sheet -->
 <script>
     /*Toggle dropdown list*/
     function toggleDD(myDropMenu) {
