@@ -44,9 +44,7 @@
     <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
         <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
             
-            <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="{{ url('/register') }}">Register a new candidate</a>
-            </li>
+            <
             <li class="flex-1 md:flex-none md:mr-3">
                 <div class="relative inline-block">
                     <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, User <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -105,12 +103,13 @@
         <section>
             <!-- student-data -->
      <div class="bg-gray-100">
-     <div class="bg-gray-100 flex justify-between items-center pr-6">
+     <div class="bg-gray-100 flex justify-between items-center pr-6 pl-4">
      <h1 class="text-5xl text-center font-bold py-3 pb-7">Students Data</h1>
+     <button id="Add new student"  class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-lg" onclick="window.location.href='{{ url('/register') }}'">Add new</button>
      <button id="download-excel"  class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-lg ">Export excel</button>
      </div>
 
-        <div class="overflow-x-auto pr-4 rounded-lg">
+        <div class="overflow-x-auto pr-4 rounded-lg pl-4">
       <table class="table-auto border-collapse border border-gray-300 ">
         <thead>
         <tr class="bg-gray-200">
@@ -130,7 +129,8 @@
      @foreach ($students as $student)
       <tr class="bg-white">
       <td class="border px-4 py-2">{{ $student->id }}</td>
-        <td class="border px-4 py-2">{{ $student->name }}</td>
+      <td class="border px-4 py-2">
+      <a href="{{ route('students.show', $student->id) }}">{{ $student->name }}</a></td>
         <td class="border px-4 py-2">{{ $student->email }}</td>
         <td class="border px-4 py-2">{{ $student->phone_number }}</td>
         <td class="border px-4 py-2">{{ $student->address }}</td>

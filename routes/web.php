@@ -27,7 +27,6 @@ Route::get('/student', function () {
     return view('student');
 });
 
-
 Route::get('/register', function () {
     return view('/register');
 });
@@ -35,8 +34,6 @@ Route::get('/register', function () {
 Route::get('/edit', function () {
     return view('/edit');
 });
-
-
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -48,7 +45,6 @@ Route::post('/login-user',[CustomAuthController::class,'loginUser'])->name('logi
 Route::get('/dashboard',[CustomAuthController::class,'dashboard'])->middleware('Authcheck');
 Route::get('/logout',[CustomAuthController::class,'logout']);
 
-
 // Student routes    
 Route::post('/students',[StudentController::class,'store'])->name('students.store');
 Route::get('/students', [StudentController::class,'index'])->name('students.index');
@@ -57,6 +53,9 @@ Route::get('/students/{id}', [StudentController::class,'show'])->name('students.
 Route::get('/students/{id}/edit', [StudentController::class,'edit'])->name('students.edit');
 Route::put('/students/{id}', [StudentController::class,'update'])->name('students.update');
 Route::delete('/students/{id}', [StudentController::class,'destroy'])->name('students.destroy');
+
+// route for download invoice 
+Route::get('/students/{id}/download-invoice-pdf', [StudentController::class, 'downloadInvoicePDF'])->name('download-invoice-pdf');
 
 //route for cd download
 Route::get('/students/{id}/download-cv', [StudentController::class,'downloadCv'])->name('download.cv');
@@ -91,22 +90,7 @@ Route::get('students/download/excel', function () {
     $writer = new Xlsx($spreadsheet);
     $fileName = 'students.xlsx';
     $writer->save($fileName);
-
     return response()->download($fileName)->deleteFileAfterSend();
 })->name('students.download.excel');
 
 
-
-
-// Route::get('/students', [StudentController::class, 'index']);
-// Route::post('/students', [StudentController::class, 'store']);
-
-
-// Course routes
-// Route::get('/courses', 'CourseController@index')->name('courses.index');
-// Route::get('/courses/create', 'CourseController@create')->name('courses.create');
-// Route::post('/courses', 'CourseController@store')->name('courses.store');
-// Route::get('/courses/{id}', 'CourseController@show')->name('courses.show');
-// Route::get('/courses/{id}/edit', 'CourseController@edit')->name('courses.edit');
-// Route::put('/courses/{id}', 'CourseController@update')->name('courses.update');
-// Route::delete('/courses/{id}', 'CourseController@destroy')->name('courses.destroy');

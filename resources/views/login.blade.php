@@ -18,11 +18,12 @@
 <section class="bg-white dark:bg-gray-900">
   <form action="{{route('login-user')}}" method="post">
   @if(Session::has('success'))
-          <div>{{Session::get('success')}}</div>
-          @endif
-          @if(Session::has('fail'))
-          <div>{{Session::get('fail')}}</div>
-          @endif
+  <div class="alert alert-success text-center">{{ Session::get('success') }}</div>
+@endif
+
+@if(Session::has('fail'))
+  <div class="alert alert-danger text-center">{{ Session::get('fail') }}</div>
+@endif
     @csrf
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">

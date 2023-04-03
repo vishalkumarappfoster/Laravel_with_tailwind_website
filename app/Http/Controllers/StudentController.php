@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Course;
 use Illuminate\Support\Facades\Storage;
-
-
-
+use PDF;
 
 class StudentController extends Controller
 {
@@ -38,7 +36,6 @@ class StudentController extends Controller
             'cv_file' => 'required|file',
         ]);
     
-
         if ($request->hasFile('cv_file')) {
             $cv_file = $request->file('cv_file');
             if ($cv_file->isValid()) {
@@ -82,14 +79,13 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
             ->subject('Welcome to our course!');
 });
        
-
-        return redirect()->back()->with('success', 'Student has been added');
+     return redirect()->back()->with('success', 'Student has been added');
     }
 
     public function show($id)
     {
         $student = Student::find($id);
-        return view('students.show', compact('student'));
+        return view('show', compact('student'));
     }
 
     public function edit($id)
@@ -155,11 +151,14 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
         return Storage::download($path);
     }
     
-    //  export excel file 
-//     public function downloadExcel()
-// {
-//     $students = Student::all(); 
-//     return Excel::download(new StudentsExport($students), 'students.xlsx');
-// }
-
+    public function downloadInvoicePDF($id) {
+        // Retrieve the student data from the database
+        $student = Student::find($id);
+        
+        // Generate the PDF
+        $pdf = PDF::loadView('invoice', compact('student'));
+    
+        // Download the PDF file with the student name as the filename
+        return $pdf->download($student->name . '_invoice.pdf');
+    }    
 }

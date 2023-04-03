@@ -19,11 +19,12 @@
 
 <form action="{{route('signup-user')}}" method="post">
 @if(Session::has('success'))
-          <div>{{Session::get('success')}}</div>
-          @endif
-          @if(Session::has('fail'))
-          <div>{{Session::get('fail')}}</div>
-          @endif
+  <div class="alert alert-success text-center">{{ Session::get('success') }}</div>
+@endif
+
+@if(Session::has('fail'))
+  <div class="alert alert-danger text-center">{{ Session::get('fail') }}</div>
+@endif
           @csrf
 <div class="bg-grey-lighter min-h-screen flex flex-col">
             <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">

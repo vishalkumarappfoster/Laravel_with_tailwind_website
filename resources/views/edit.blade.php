@@ -44,9 +44,7 @@
     <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
         <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
             
-            <li class="flex-1 md:flex-none md:mr-3">
-                <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="{{ url('/register') }}">Register a new candidate</a>
-            </li>
+            
             <li class="flex-1 md:flex-none md:mr-3">
                 <div class="relative inline-block">
                     <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, User <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -102,8 +100,9 @@
 
             </div>
         </nav>
-        <section>
-            <div id="main" class="flex-1 bg-gray-100 mt-12  pb-24 pt-6 md:pb-5  w-screen rounded-lg ">
+        <section class="bg-gray-100 w-4/5 rounded-lg mt-6">
+            <div id="main" class="flex-1  mt-12  pb-24  md:pb-5  w-full rounded-lg overflow-x-auto">
+              <h1 class="text-center text-2xl pb-3">Edit Details</h1>
               <!-- Edit-form -->
         <div class="w-full md:w-1/2 md:max-w-full mx-auto bg-white">
   <div class="p-6 border border-gray-300 sm:rounded-md">
@@ -310,10 +309,9 @@
       
       <div>
         <div class="mt-2 text-gray-700 text-right text-xs">
-          by
-          <a href="https://herotofu.com" class="hover:underline" target="_blank"
-            >HeroTofu</a
-          >
+         
+        
+          
         </div>
       </div>
       

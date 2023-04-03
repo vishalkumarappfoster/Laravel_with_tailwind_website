@@ -5,16 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>Show student details</title>
     <meta name="author" content="name">
     <meta name="description" content="description here">
     <meta name="keywords" content="keywords,here">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/> <!--Replace with your tailwind.css once created-->
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
-
+    <script src="https://kit.fontawesome.com/9fad20195a.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
@@ -44,10 +46,10 @@
     <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
         <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
             
-           
+          
             <li class="flex-1 md:flex-none md:mr-3">
                 <div class="relative inline-block">
-                    <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hello <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <button onclick="toggleDD('myDropdown')" class="drop-button text-white py-2 px-2"> <span class="pr-2"><i class="em em-robot_face"></i></span> Hi, User <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg></button>
                     <div id="myDropdown" class="dropdownlist absolute bg-gray-800 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible">
                         <input type="text" class="drop-search p-2 text-gray-600" placeholder="Search.." id="myInput" onkeyup="filterDD('myDropdown','myInput')">
@@ -91,7 +93,7 @@
                         </li>
                         <li class="mr-3 flex-1">
                             <a href="{{ route('students.index') }}" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                                <i class="fa fa-wallet pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Students</span>
+                                <i class="fa fa-wallet pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Students Data</span>
                             </a>
                         </li>
                     </ul>
@@ -101,101 +103,117 @@
             </div>
         </nav>
         <section>
-            <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <!-- student-details -->
+            <div class="bg-gray-100 w-screen fixed py-8 h-screen">
+            <div class="mx-auto p-16" style="max-width: 800px;">
+  <div class="flex items-center justify-between mb-8 px-3">
+    <div>
+      <span class="text-2xl"> Invoice of student registration</span><br />
+      <span></span> <br />
+    </div>
+    <div class="text-right">
+      <img src="{{asset('/image/codesmith-logo.svg')}}" />
+    </div>
+  </div>
 
-                <div class="bg-gray-800 pt-3">
-                    <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-                        <h1 class="font-bold pl-2">Dashboard</h1>
-                    </div>
-                </div>
-                <h1 class="font-bold tracking-normal text-3xl text-center pb-6 text-gray-800 pt-4">Available Courses</h1>
-                <div class="flex flex-row flex-wrap flex-grow mt-2">
+  <div class="flex justify-between mb-8 px-3">
+    <div>
+      Student Name: {{ $student->name }} <br />
+      Email: {{ $student->email }}<br />
+      Phone: {{ $student->phone_number }} <br />
+      Address: {{ $student->address }}<br />
+      Course: {{ $student->select_course }}<br />
+      Highest Qualification: {{ $student->highest_qualification }}
+    </div>
+    <div class="text-right">
+      Codesmith<br />
+      Street 12<br />
+      10000 City<br />
+      Codesmith@org.com
+    </div>
+  </div>
 
-                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                    <!--Graph Card-->
-                    <div class="bg-white border-transparent rounded-lg shadow-xl">
-                        <div class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                            <h class="font-bold uppercase text-gray-600">Front-end</h>
-                        </div>
-                        <div class="p-5">
-                        <img alt="content" class=" object-center h-full w-full" 
-                        src="/image/frontendimg.avif">  
-                        </div>
-                    </div>
-                    <!--/Graph Card-->
-                </div>
+  <div class="border border-t-2 border-gray-200 mb-8 px-3"></div>
 
-                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                    <!--Graph Card-->
-                    <div class="bg-white border-transparent rounded-lg shadow-xl">
-                        <div class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                            <h2 class="font-bold uppercase text-gray-600">Back-end</h2>
-                        </div>
-                        <div class="p-5">
-                        <img alt="content" class=" object-center h-full w-full" 
-                        src="/image/backendimg.avif">   
-                        </div>
-                    </div>
-                    <!--/Graph Card-->
-                </div>
+  <div class="mb-8 px-3">
+    <p>Fees receipt</p>
+  </div>
 
-                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                    <!--Graph Card-->
-                    <div class="bg-white border-transparent rounded-lg shadow-xl">
-                        <div class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                            <h2 class="font-bold uppercase text-gray-600">Full stack</h2>
-                        </div>
-                        <div class="p-5">
-                        <img alt="content" class=" object-center h-full w-full" 
-                        src="/image/fsimg.png">
-                        </div>
-                    </div>
-                    <!--/Graph Card-->
-                </div>
+  <div class="flex justify-between mb-4 bg-gray-200 px-3 py-2">
+    <div>Admission Fees </div>
+    <div class="text-right font-medium">12500</div>
+  </div>
+  <div class="flex justify-between mb-4 bg-gray-200 px-3 py-2">
+    <div>Tution Fees</div>
+    <div class="text-right font-medium">8000</div>
+  </div>
+  <div class="flex justify-between mb-4 bg-gray-200 px-3 py-2">
+    <div>Hostel Fees</div>
+    <div class="text-right font-medium">3000</div>
+  </div>
 
-                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                    <!--Graph Card-->
-                    <div class="bg-white border-transparent rounded-lg shadow-xl">
-                        <div class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                            <h5 class="font-bold uppercase text-gray-600">UI design</h5>
-                        </div>
-                        <div class="p-5">
-                        <img alt="content" class=" object-center max-h-48 w-full" 
-                        src="/image/uiimg1.jpg">
-                        </div>
-                    </div>
-                    <!--/Graph Card-->
-                </div>
+  <div class="flex justify-between items-center mb-2 px-3">
+    <div class="text-2xl leading-none"><span class="">Total</span>:</div>
+    <div class="text-2xl text-right font-medium">23500 INR</div>
+  </div>
 
-                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Table Card-->
-                        <div class="bg-white border-transparent rounded-lg shadow-xl">
-                            <div class="bg-gradient-to-b from-gray-300 to-gray-100 uppercase text-gray-800 border-b-2 border-gray-300 rounded-tl-lg rounded-tr-lg p-2">
-                                <h2 class="font-bold uppercase text-gray-600">UX</h2>
-                            </div>
-                            <div class="p-5">
-                               
-                            <img alt="content" class=" object-center max-h-48 w-full" 
-                         src="/image/uximg.jpg">
-                
+  <div class="flex mb-8 justify-end px-3">
+    <div class="text-right w-1/2 px-0 leading-tight mb-0">
+      <div>
+        <p>
+        <a href="{{ route('download-invoice-pdf', $student->id) }}" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-print"></span> Print
+        </a>
+    </div>
+    </div>
+  </div>
 
-                            </div>
-                        </div>
-                        <!--/table Card-->
-                    </div>
+  <div class="mb-8 text-4xl text-center px-3">
+    <span>Thank you!</span>
+  </div>
 
-               
-                    <!--/Advert Card-->
-                </div>
-
-
-                </div>
-            </div>
+  <div class="text-center text-sm px-3">
+    Codesmith@site.com ∖ www.codesmithschool@gmail.com
+  </div>
+</div>
+    </div>
         </section>
     </div>
 </main>
 
+<!-- excel sheet -->
+<script>
+    // click event button
+    document.getElementById('download-excel').addEventListener('click', function() {
+        // Redirect to downloadExcel route
+        window.location.href = "{{ route('students.download.excel') }}";
+    });
+</script>
 
+
+<script>
+  document.getElementById("download-excel").addEventListener("click", function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '{{ route("students.download.excel") }}');
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+      if (this.status === 200) {
+        var a = document.createElement('a');
+        var url = window.URL.createObjectURL(this.response);
+        a.href = url;
+        a.download = 'students.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);  
+        }, 0);
+      }
+    };
+    xhr.send();
+  });
+</script>
+<!-- excel sheet -->
 <script>
     /*Toggle dropdown list*/
     function toggleDD(myDropMenu) {
