@@ -139,17 +139,17 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
     }
     
     public function downloadCv($id)
-    {
-        $student = Student::find($id);
+{
+    $student = Student::find($id);
 
-        if (!$student) {
-            abort(404);
-        }
-       
-        $path =   $student->cv_file;
-        
-        return Storage::download($path);
+    if (!$student) {
+        abort(404);
     }
+    $path = $student->cv_file;
+    $filename = $student->name . '_CV.pdf'; // Change the extension to match the file type
+    return Storage::download($path, $filename);
+}
+
     
     public function downloadInvoicePDF($id) {
         // Retrieve the student data from the database
@@ -161,4 +161,18 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
         // Download the PDF file with the student name as the filename
         return $pdf->download($student->name . '_invoice.pdf');
     }    
+
+    public function __construct()
+    {
+        $this->middleware('Authcheck');
+    }
+    
+    // public function index()
+    // {
+    //     // Only authenticated users can access this method.
+    //     $students = Student::all();
+    //     return view('students.index', ['students' => $students]);
+    // }
+    
 }
+

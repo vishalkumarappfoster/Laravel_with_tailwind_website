@@ -110,10 +110,10 @@
      </div>
 
         <div class="overflow-x-auto pr-4 rounded-lg pl-4">
-      <table class="table-auto border-collapse border border-gray-300 ">
+      <table class="table-auto border-collapse border border-gray-300 text-sm">
         <thead>
         <tr class="bg-gray-200">
-        <th class="px-4 py-2">Id</th>
+        <!-- <th class="px-4 py-2">Id</th> -->
         <th class="px-4 py-2">Name</th>
         <th class="px-4 py-2">Email</th>
         <th class="px-4 py-2">Phone No.</th>
@@ -128,7 +128,7 @@
      <tbody>
      @foreach ($students as $student)
       <tr class="bg-white">
-      <td class="border px-4 py-2">{{ $student->id }}</td>
+      <!-- <td class="border px-4 py-2">{{ $student->id }}</td> -->
       <td class="border px-4 py-2">
       <a href="{{ route('students.show', $student->id) }}">{{ $student->name }}</a></td>
         <td class="border px-4 py-2">{{ $student->email }}</td>

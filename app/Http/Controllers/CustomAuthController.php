@@ -78,5 +78,4 @@ public function logout(){
       return redirect('login');
   }
 }
-
 }
