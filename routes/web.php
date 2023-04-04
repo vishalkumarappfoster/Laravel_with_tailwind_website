@@ -52,8 +52,9 @@ Route::post('/students',[StudentController::class,'store'])->name('students.stor
 // **student auth new 
 
 Route::get('/students', [StudentController::class, 'index'])
-    ->name('students.index')
-    ->middleware('Authcheck');
+    ->middleware('Authcheck')
+    ->name('students.index');
+
 
 
 Route::get('/students/create', [StudentController::class,'create'])->name('students.create');
@@ -63,13 +64,14 @@ Route::put('/students/{id}', [StudentController::class,'update'])->name('student
 Route::delete('/students/{id}', [StudentController::class,'destroy'])->name('students.destroy');
 
 // route for download invoice 
+// Route::get('/students/{id}/download-invoice-pdf', [StudentController::class, 'downloadInvoicePDF'])->name('download-invoice-pdf');
 Route::get('/students/{id}/download-invoice-pdf', [StudentController::class, 'downloadInvoicePDF'])->name('download-invoice-pdf');
 
-//route for cd download
+//route for cv download
 Route::get('/students/{id}/download-cv', [StudentController::class,'downloadCv'])->name('download.cv');
 
-//route for download table data in excel sheet
-// Route::get('/students/download/excel', [StudentController::class, 'downloadExcel'])->name('students.download.excel');
+
+
 
 Route::get('students/download/excel', function () {
     $students = Student::all();

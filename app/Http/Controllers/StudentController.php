@@ -9,12 +9,15 @@ use App\Models\Course;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
+
 class StudentController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
-        return view('student', compact('students'));
+        // $students = Student::all();
+        // return view('student', compact('students'));
+             $students = Student::all();
+            return view('student', ['students' => $students]);
     }
 
     public function create()
@@ -150,29 +153,33 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
     return Storage::download($path, $filename);
 }
 
+    //***Invoice download*** */ 
+
+    // public function downloadInvoicePDF($id) {
+    //     // Retrieve the student data from the database
+    //     $student = Student::find($id);
+        
+    //     // Generate the PDF
+    //     $pdf = PDF::loadView('invoice', compact('student'));
     
+    //     // ***Download the PDF file with the student name ***
+    //     return $pdf->download($student->name . '_invoice.pdf');
+    // }    
+
     public function downloadInvoicePDF($id) {
         // Retrieve the student data from the database
         $student = Student::find($id);
-        
-        // Generate the PDF
-        $pdf = PDF::loadView('invoice', compact('student'));
-    
-        // Download the PDF file with the student name as the filename
-        return $pdf->download($student->name . '_invoice.pdf');
-    }    
+            
+        // Return the invoice view with the student data
+        return view('invoice', compact('student'));
+    }
+   
 
+
+// student authcheck //
     public function __construct()
     {
         $this->middleware('Authcheck');
     }
-    
-    // public function index()
-    // {
-    //     // Only authenticated users can access this method.
-    //     $students = Student::all();
-    //     return view('students.index', ['students' => $students]);
-    // }
-    
 }
 

@@ -161,9 +161,12 @@
     <div class="text-right w-1/2 px-0 leading-tight mb-0">
       <div>
         <p>
-        <a href="{{ route('download-invoice-pdf', $student->id) }}" class="btn btn-info btn-lg">
+        <!-- <a href="{{ route('download-invoice-pdf', $student->id) }}" class="btn btn-info btn-lg">
           <span class="glyphicon glyphicon-print"></span> Print
-        </a>
+        </a> -->
+        <a id="print-invoice" href="{{ route('download-invoice-pdf', $student->id) }}" class="btn btn-info btn-lg">
+  <span class="glyphicon glyphicon-print"></span> Print
+</a>
     </div>
     </div>
   </div>
@@ -180,6 +183,31 @@
         </section>
     </div>
 </main>
+
+
+<!-- ****Script windows.print**** -->
+
+<script>
+  // Get the print button element by ID
+  var printButton = document.getElementById("print-invoice");
+
+  // Add a click event listener to the button
+  printButton.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    // Open the invoice page in a new window
+    var invoiceWindow = window.open(printButton.href, "Invoice", "height=600,width=800");
+
+    // Wait for the window to load
+    invoiceWindow.addEventListener("load", function() {
+      // Print the invoice
+      invoiceWindow.print();
+    });
+  });
+</script>
+
+
+
 
 <!-- excel sheet -->
 <script>
