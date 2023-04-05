@@ -102,9 +102,9 @@
 
             </div>
         </nav>
-        <section>
+        <section class="bg-gray-100 w-4/5 rounded-lg mt-6">
             <!-- student-details -->
-            <div class="bg-gray-100 w-screen fixed py-8 h-screen">
+            <div class="flex-1  mt-12  pb-24  md:pb-5  w-full rounded-lg overflow-x-auto">
             <div class="mx-auto p-16" style="max-width: 800px;">
   <div class="flex items-center justify-between mb-8 px-3">
     <div>

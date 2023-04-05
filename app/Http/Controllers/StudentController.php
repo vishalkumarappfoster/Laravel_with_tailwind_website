@@ -53,10 +53,10 @@ class StudentController extends Controller
         // dd($request);
 
         $student = new Student([
-            'name' => $request->get('name'),
+            'name' => ucwords($request->get('name')),
             'email' => $request->get('email'),
             'phone_number' => $request->get('phone_number'),
-            'address' => $request->get('address'),
+            'address' => ucwords($request->get('address')),
             'select_course' => $request->get('select_course'),
             'highest_qualification' => $request->get('highest_qualification'),
             'cv_file' => $cv_file_path,
@@ -166,6 +166,8 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
     //     return $pdf->download($student->name . '_invoice.pdf');
     // }    
 
+
+    //working****
     public function downloadInvoicePDF($id) {
         // Retrieve the student data from the database
         $student = Student::find($id);
@@ -175,6 +177,7 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
     }
    
 
+    
 
 // student authcheck //
     public function __construct()
