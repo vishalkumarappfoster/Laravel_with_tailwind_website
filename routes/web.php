@@ -70,6 +70,12 @@ Route::get('/students/{id}/download-invoice-pdf', [StudentController::class, 'do
 //route for cv download
 Route::get('/students/{id}/download-cv', [StudentController::class,'downloadCv'])->name('download.cv');
 
+// *Students export to pdf*
+
+
+
+Route::get('/students/download/pdf', [StudentController::class, 'downloadPdf'])->name('students.download.pdf');
+
 
 
 
@@ -81,10 +87,10 @@ Route::get('students/download/excel', function () {
     $sheet->setCellValue('A1', 'ID');
     $sheet->setCellValue('B1', 'Name');
     $sheet->setCellValue('C1', 'Email');
-    $sheet->setCellValue('D1', 'phone_number');
-    $sheet->setCellValue('E1', 'address');
-    $sheet->setCellValue('F1', 'select_course');
-    $sheet->setCellValue('G1', 'highest_qualification');
+    $sheet->setCellValue('D1', 'Phone No');
+    $sheet->setCellValue('E1', 'Address');
+    $sheet->setCellValue('F1', 'Course');
+    $sheet->setCellValue('G1', 'Highest Qualification');
     
     foreach ($students as $index => $student) {
         $row = $index + 2;

@@ -15,6 +15,9 @@
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/9fad20195a.js" crossorigin="anonymous"></script>
+ 
+    
+
 </head>
 
 <body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
@@ -67,7 +70,6 @@
 </header>
  
 <main>
-
     <div class="flex flex-col md:flex-row">
         <nav aria-label="alternative nav">
             <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
@@ -107,6 +109,12 @@
      <h1 class="text-5xl text-center font-bold py-3 pb-7">Students Data</h1>
      <button id="Add new student"  class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-lg" onclick="window.location.href='{{ url('/register') }}'">Add new</button>
      <button id="download-excel"  class="bg-blue-500 hover:bg-blue-700 text-white  py-2 px-4 rounded-lg ">Export excel</button>
+     <a href="{{ route('students.download.pdf') }}" target="_blank">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-lg">Export PDF</button>
+</a>
+
+
+
      </div>
 
         <div class="overflow-x-auto pr-4 rounded-lg pl-4">
@@ -160,6 +168,24 @@
         </section>
     </div>
 </main>
+
+<!-- students export to pdf -->
+
+<script>
+    var printButton = document.getElementById("print-students-pdf");
+    printButton.addEventListener("click", function(e) {
+        e.preventDefault();
+        var studentsWindow = window.open(printButton.href, "Students List", "height=600,width=800");
+        studentsWindow.addEventListener("load", function() {
+            studentsWindow.print();
+        });
+    });
+</script>
+
+
+
+<!-- students export to pdf -->
+
 
 <!-- excel sheet -->
 <script>

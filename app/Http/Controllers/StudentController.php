@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 
 
+
 class StudentController extends Controller
 {
     public function index()
@@ -175,14 +176,22 @@ Mail::send('WelcomeEmail', $data, function($message) use($email, $name) {
         // Return the invoice view with the student data
         return view('invoice', compact('student'));
     }
-   
-
     
-
 // student authcheck //
     public function __construct()
     {
         $this->middleware('Authcheck');
     }
+
+// students export to pdf
+public function downloadPdf()
+{
+    $students = Student::all();
+    $pdf = PDF::loadView('pdf', compact('students'));
+    return $pdf->download('students.pdf');
 }
+
+}
+
+
 
